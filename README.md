@@ -1,64 +1,78 @@
-````markdown
 # 🚀 Task 2 — Jenkins CI/CD Pipeline with Docker
 
-![Jenkins](https://img.shields.io/badge/Jenkins-CI%2FCD-D24939?logo=jenkins&logoColor=white)
-![Docker](https://img.shields.io/badge/Docker-Containerization-2496ED?logo=docker&logoColor=white)
-![GitHub](https://img.shields.io/badge/GitHub-Repository-181717?logo=github&logoColor=white)
-![Nginx](https://img.shields.io/badge/Nginx-Web%20Server-009639?logo=nginx&logoColor=white)
-![Status](https://img.shields.io/badge/Status-Completed-success)
+[![Jenkins](https://img.shields.io/badge/Jenkins-CI%2FCD-D24939?logo=jenkins\&logoColor=white)](https://www.jenkins.io/) [![Docker](https://img.shields.io/badge/Docker-Containerization-2496ED?logo=docker\&logoColor=white)](https://www.docker.com/) [![GitHub](https://img.shields.io/badge/GitHub-Repository-181717?logo=github\&logoColor=white)](https://github.com/) [![Nginx](https://img.shields.io/badge/Nginx-Web%20Server-009639?logo=nginx\&logoColor=white)](https://nginx.org/) [![Status](https://img.shields.io/badge/Status-Completed-success)]
 
-> A practical DevOps internship project demonstrating how **Jenkins and Docker** can be used to automate the build, test, and deployment of a simple web application.
+> A practical DevOps internship project demonstrating how **Jenkins and Docker** can be used to automate the build, test, and deployment of a containerized web application.
 
 ---
 
 ## 📌 Table of Contents
 
-- [🎯 Project Overview](#-project-overview)
-- [🛠️ Tools Used](#️-tools-used)
-- [📁 Project Structure](#-project-structure)
-- [🏗️ Project Architecture](#️-project-architecture)
-- [🔄 CI/CD Pipeline Flow](#-cicd-pipeline-flow)
-- [🐳 Docker Configuration](#-docker-configuration)
-- [⚙️ Jenkins Pipeline](#️-jenkins-pipeline)
-- [🔔 Automated Trigger](#-automated-trigger)
-- [▶️ Application Deployment](#️-application-deployment)
-- [🧪 Testing & Verification](#-testing--verification)
-- [📸 Evidence](#-evidence)
-- [⚠️ Issues Encountered & Fixes](#️-issues-encountered--fixes)
-- [🎓 What I Learned](#-what-i-learned)
-- [🧠 Key Concepts](#-key-concepts)
-- [📋 Project Status](#-project-status)
-- [🏁 Conclusion](#-conclusion)
+* 🎯 Project Overview
+* 🛠️ Tools Used
+* 📁 Project Structure
+* 🏗️ Project Architecture
+* 🔄 CI/CD Workflow
+* ⚙️ Jenkins Pipeline
+* 🐳 Docker Configuration
+* 🔔 SCM Trigger
+* 🌐 Application Deployment
+* 📸 Evidence
+* 🎓 What I Learned
+* ⚠️ Issues Encountered
+* 🧠 Key Commands
+* ✅ Project Status
+* 🏁 Conclusion
 
 ---
 
 ## 🎯 Project Overview
 
-The objective of this project was to create a basic **Jenkins CI/CD pipeline** that automates the process of building, testing, and deploying a Dockerized web application.
+The objective of this project was to create a basic **Jenkins CI/CD pipeline** for a Dockerized web application.
 
-The project demonstrates how Jenkins can:
+The project demonstrates how Jenkins can automate the main stages of a CI/CD workflow:
 
-- Retrieve source code from GitHub
-- Execute a Docker build
-- Verify the generated Docker image
-- Deploy the application using a Docker container
-- Organize the workflow into separate pipeline stages
-- Monitor GitHub repository changes using SCM polling
+* Checkout source code from GitHub
+* Build a Docker image
+* Verify the Docker image
+* Deploy the application using Docker
+* Configure SCM polling for repository changes
+* Verify the deployed application through a browser
+
+The project follows the workflow:
+
+```text
+GitHub
+   ↓
+Jenkins
+   ↓
+Checkout SCM
+   ↓
+Build
+   ↓
+Test
+   ↓
+Deploy
+   ↓
+Docker Container
+   ↓
+Nginx Web Application
+```
 
 ---
 
 ## 🛠️ Tools Used
 
-| Tool / Technology | Purpose |
-| ----------------- | ------- |
-| **Jenkins** | CI/CD automation |
-| **Docker** | Containerization and deployment |
-| **Git** | Version control |
-| **GitHub** | Remote source-code repository |
-| **Nginx** | Web server inside the Docker container |
-| **HTML** | Simple web application |
-| **VS Code** | Project development and configuration |
-| **Java 21** | Jenkins runtime |
+| Tool        | Purpose                         |
+| ----------- | ------------------------------- |
+| **Jenkins** | CI/CD automation                |
+| **Docker**  | Containerization and deployment |
+| **Git**     | Version control                 |
+| **GitHub**  | Remote repository               |
+| **Nginx**   | Web server                      |
+| **HTML**    | Web application                 |
+| **VS Code** | Development environment         |
+| **Windows** | Local development environment   |
 
 ---
 
@@ -73,95 +87,151 @@ Task-2-jenkins-cicd/
 ├── 📄 README.md
 │
 └── 📂 screenshots/
-    ├── 📸 Jenkins pipeline
-    ├── 📸 Deployed application
-    └── 📸 Poll SCM configuration
-````
+    ├── 📸 GitHub Repository
+    ├── 📸 Jenkins Pipeline
+    ├── 📸 Pipeline Stages
+    ├── 📸 Application Deployment
+    └── 📸 SCM Trigger
+```
 
 ### File Purpose
 
-| File / Folder  | Purpose                                |
-| -------------- | -------------------------------------- |
-| `Dockerfile`   | Defines the Docker image configuration |
-| `Jenkinsfile`  | Defines the Jenkins CI/CD pipeline     |
-| `index.html`   | Simple web application                 |
-| `README.md`    | Project documentation                  |
-| `screenshots/` | Evidence of pipeline and deployment    |
+| File / Folder  | Purpose                            |
+| -------------- | ---------------------------------- |
+| `Dockerfile`   | Defines the Docker image           |
+| `Jenkinsfile`  | Defines the Jenkins CI/CD pipeline |
+| `index.html`   | Simple web application             |
+| `README.md`    | Project documentation              |
+| `screenshots/` | Evidence of project execution      |
 
 ---
 
 ## 🏗️ Project Architecture
 
 ```text
-                    ┌─────────────────────┐
-                    │   GitHub Repository │
-                    │  Source Code +      │
-                    │    Jenkinsfile      │
-                    └──────────┬──────────┘
-                               │
-                               ▼
-                    ┌─────────────────────┐
-                    │       Jenkins       │
-                    │    CI/CD Pipeline   │
-                    └──────────┬──────────┘
-                               │
-                 ┌─────────────┼─────────────┐
-                 ▼             ▼             ▼
-             Checkout        Build          Test
-                 │             │             │
-                 │             ▼             │
-                 │       Docker Image        │
-                 │             │             │
-                 └─────────────┼─────────────┘
-                               ▼
-                           Deploy
-                               │
-                               ▼
-                    ┌─────────────────────┐
-                    │   Docker Container  │
-                    │      Nginx          │
-                    └──────────┬──────────┘
-                               │
-                               ▼
-                    http://localhost:8080
+                ┌──────────────────┐
+                │      GitHub      │
+                │ Source Repository│
+                └────────┬─────────┘
+                         │
+                         ▼
+                ┌──────────────────┐
+                │     Jenkins      │
+                │   CI/CD Server   │
+                └────────┬─────────┘
+                         │
+              ┌──────────┴──────────┐
+              │                     │
+              ▼                     ▼
+        Checkout SCM             Jenkinsfile
+                                    │
+                                    ▼
+                                  Build
+                                    │
+                                    ▼
+                                  Test
+                                    │
+                                    ▼
+                                 Deploy
+                                    │
+                                    ▼
+                            ┌────────────────┐
+                            │ Docker         │
+                            │ Container      │
+                            │     Nginx      │
+                            └───────┬────────┘
+                                    │
+                                    ▼
+                           localhost:8080
 ```
 
 ---
 
-## 🔄 CI/CD Pipeline Flow
+## 🔄 CI/CD Workflow
 
-```mermaid
-flowchart LR
-    A[GitHub Repository] --> B[Jenkins]
-    B --> C[Checkout SCM]
-    C --> D[Build]
-    D --> E[Test]
-    E --> F[Deploy]
-    F --> G[Docker Container]
-    G --> H[Web Application]
+The project follows this workflow:
+
+### 1. Source Code
+
+The application source code is maintained in a GitHub repository.
+
+### 2. Jenkins Checkout
+
+Jenkins retrieves the project source code from the GitHub `main` branch.
+
+### 3. Build
+
+Jenkins builds the Docker image using the project's `Dockerfile`.
+
+### 4. Test
+
+Jenkins verifies that the Docker image was successfully created.
+
+### 5. Deploy
+
+Jenkins starts a Docker container using the generated image.
+
+### 6. Verification
+
+The deployed web application is accessed through:
+
+```text
+http://localhost:8080
 ```
+
+---
+
+## ⚙️ Jenkins Pipeline
+
+The pipeline is defined using a `Jenkinsfile`.
+
+The project uses a **Declarative Jenkins Pipeline**.
 
 ### Pipeline Stages
 
 ```text
 Checkout SCM
-      ↓
+     ↓
 Build
-      ↓
+     ↓
 Test
-      ↓
+     ↓
 Deploy
-      ↓
-Docker Container
-      ↓
-Web Application
+```
+
+### Checkout SCM
+
+Jenkins checks out the source code from GitHub.
+
+### Build
+
+The Docker image is created using:
+
+```bash
+docker build -t task-2-jenkins-cicd .
+```
+
+### Test
+
+The generated Docker image is verified using:
+
+```bash
+docker image inspect task-2-jenkins-cicd
+```
+
+### Deploy
+
+The application is deployed using:
+
+```bash
+docker run -d --name task2-app -p 8080:80 task-2-jenkins-cicd
 ```
 
 ---
 
 ## 🐳 Docker Configuration
 
-The application is packaged into a lightweight Docker image using **Nginx Alpine**.
+The project uses **Nginx Alpine** as the base image.
 
 ### Dockerfile
 
@@ -170,65 +240,16 @@ FROM nginx:alpine
 COPY index.html /usr/share/nginx/html/index.html
 ```
 
-### Explanation
+### Docker Configuration Explained
 
-* `FROM nginx:alpine` uses a lightweight Nginx image.
-* `COPY` places the HTML application inside the Nginx web directory.
-* Nginx serves the application through port `80` inside the container.
+| Configuration       | Purpose                                  |
+| ------------------- | ---------------------------------------- |
+| `FROM nginx:alpine` | Uses lightweight Nginx image             |
+| `COPY index.html`   | Copies the web page into Nginx           |
+| Port `80`           | Nginx container HTTP port                |
+| Port `8080`         | Host port used to access the application |
 
-The application is exposed locally through:
-
-```text
-http://localhost:8080
-```
-
-The port mapping is:
-
-```text
-Host Port 8080 → Container Port 80
-```
-
----
-
-## ⚙️ Jenkins Pipeline
-
-The CI/CD workflow is defined in the `Jenkinsfile`.
-
-### Pipeline Stages
-
-### 1. Checkout SCM
-
-Jenkins retrieves the project source code from the GitHub repository.
-
-```text
-GitHub → Jenkins Workspace
-```
-
-### 2. Build
-
-Jenkins builds the Docker image:
-
-```bash
-docker build -t task-2-jenkins-cicd .
-```
-
-### 3. Test
-
-The pipeline verifies that the Docker image was successfully created:
-
-```bash
-docker image inspect task-2-jenkins-cicd
-```
-
-### 4. Deploy
-
-The Docker container is started:
-
-```bash
-docker run -d --name task2-app -p 8080:80 task-2-jenkins-cicd
-```
-
-After deployment, the application becomes available at:
+The application is therefore accessed using:
 
 ```text
 http://localhost:8080
@@ -236,85 +257,29 @@ http://localhost:8080
 
 ---
 
-## 📜 Jenkinsfile
+## 🔔 SCM Trigger
 
-The project uses a **Declarative Jenkins Pipeline**.
+Jenkins was configured with **Poll SCM** to periodically check the GitHub repository for changes.
 
-```groovy
-pipeline {
-    agent any
-
-    stages {
-        stage('Build') {
-            steps {
-                bat 'docker build -t task-2-jenkins-cicd .'
-            }
-        }
-
-        stage('Test') {
-            steps {
-                bat 'docker image inspect task-2-jenkins-cicd'
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-                bat 'docker run -d --name task2-app -p 8080:80 task-2-jenkins-cicd'
-            }
-        }
-    }
-}
-```
-
-The Jenkins job uses:
-
-```text
-Pipeline script from SCM
-```
-
-with the GitHub repository as the source.
-
----
-
-## 🔔 Automated Trigger
-
-Jenkins was configured with **Poll SCM** to periodically check the GitHub repository for source-code changes.
-
-The configured schedule was:
+Configured schedule:
 
 ```text
 H/1 * * * *
 ```
 
-This means Jenkins checks the repository approximately once per minute according to Jenkins' hashed scheduling mechanism.
-
-### Trigger Configuration
-
-```text
-GitHub Repository
-       ↓
-    Poll SCM
-       ↓
-Change Detected
-       ↓
-Jenkins Pipeline
-```
-
-> **Note:** Poll SCM was configured as the automated trigger mechanism. The project evidence focuses on the configured trigger and the successful manual pipeline execution.
+The purpose of SCM polling is to allow Jenkins to check the repository for new commits and trigger a pipeline build when a change is detected.
 
 ---
 
-## ▶️ Application Deployment
+## 🌐 Application Deployment
 
-The application was deployed locally using Docker through the Jenkins pipeline.
-
-### Application URL
+After the Jenkins pipeline successfully completed the deployment stage, the application was available at:
 
 ```text
 http://localhost:8080
 ```
 
-### Expected Output
+### Application Output
 
 ```text
 Jenkins CI/CD Pipeline
@@ -322,43 +287,7 @@ Jenkins CI/CD Pipeline
 Deployment successful!
 ```
 
-The deployed web page was successfully verified in the browser.
-
----
-
-## 🧪 Testing & Verification
-
-The Jenkins pipeline was successfully executed with the following stages:
-
-| Stage        | Result    |
-| ------------ | --------- |
-| Checkout SCM | ✅ Success |
-| Build        | ✅ Success |
-| Test         | ✅ Success |
-| Deploy       | ✅ Success |
-
-### Jenkins Result
-
-```text
-Finished: SUCCESS
-```
-
-### Docker Verification
-
-The Docker deployment was verified by opening:
-
-```text
-http://localhost:8080
-```
-
-The browser displayed:
-
-```text
-Jenkins CI/CD Pipeline
-Deployment successful!
-```
-
-This confirmed that the Docker container was serving the web application successfully.
+The application was served by **Nginx inside a Docker container**.
 
 ---
 
@@ -366,114 +295,30 @@ This confirmed that the Docker container was serving the web application success
 
 The `screenshots/` directory contains evidence of the completed project.
 
-| Evidence                 | Description                                                        |
-| ------------------------ | ------------------------------------------------------------------ |
-| `Jenkins pipeline`       | Checkout SCM, Build, Test and Deploy stages completed successfully |
-| `Deployed application`   | Web application successfully running on `localhost:8080`           |
-| `Poll SCM configuration` | Jenkins SCM polling configuration                                  |
+| Evidence                 | Description                                 |
+| ------------------------ | ------------------------------------------- |
+| `GitHub Repository`      | Project files available on GitHub           |
+| `Jenkins Pipeline`       | Jenkins job configuration and execution     |
+| `Pipeline Stages`        | Checkout SCM, Build, Test and Deploy stages |
+| `Application Deployment` | Successfully deployed web application       |
+| `SCM Trigger`            | Poll SCM configuration                      |
 
-The screenshots provide visual verification of the Jenkins pipeline, Docker deployment, and trigger configuration.
+### Successful Jenkins Pipeline
 
----
-
-## ⚠️ Issues Encountered & Fixes
-
-### 1. Jenkins Java Version Requirement
-
-Initially, Java 8 was available on the system.
-
-Jenkins required a newer supported Java version, so **Eclipse Temurin JDK 21** was installed and configured.
-
-Verification:
-
-```bash
-java -version
-```
-
-The terminal was then updated to use Java 21.
-
----
-
-### 2. Jenkins Optional Plugin Installation
-
-During the Jenkins setup, some optional plugins such as:
+The Jenkins pipeline completed with:
 
 ```text
-Email Extension
-LDAP
+Finished: SUCCESS
 ```
 
-failed to install.
-
-The important plugins required for the project, including Pipeline and Git-related functionality, were successfully installed.
-
-The project continued successfully because those optional plugins were not required for the basic CI/CD pipeline.
-
----
-
-### 3. Git Push Connection Error
-
-While pushing the README changes to GitHub, the following error occurred:
+The pipeline stages were successfully executed:
 
 ```text
-error: RPC failed; curl 35 Recv failure: Connection was reset
-send-pack: unexpected disconnect while reading sideband packet
-fatal: the remote end hung up unexpectedly
+✓ Checkout SCM
+✓ Build
+✓ Test
+✓ Deploy
 ```
-
-Git status was then checked:
-
-```bash
-git status
-```
-
-It showed:
-
-```text
-Your branch is ahead of 'origin/main' by 1 commit.
-```
-
-The push was retried successfully and the changes appeared in the GitHub repository.
-
-### Key Takeaway
-
-A temporary network connection reset during `git push` does not necessarily mean that the local commit is lost. Checking `git status` helps determine whether the commit still needs to be pushed.
-
----
-
-## 🧠 Key Concepts
-
-### CI
-
-**Continuous Integration** means frequently integrating code changes into a shared repository and automatically validating them.
-
-### CD
-
-**Continuous Delivery/Deployment** automates the process of preparing or deploying an application after successful validation.
-
-### Jenkins
-
-Jenkins is an automation server commonly used to implement CI/CD pipelines.
-
-### Jenkinsfile
-
-A `Jenkinsfile` is a text file stored with the source code that defines the Jenkins pipeline as code.
-
-### Docker Image
-
-A Docker image is a packaged template used to create containers.
-
-### Docker Container
-
-A container is a running instance of a Docker image.
-
-### SCM
-
-SCM stands for **Source Code Management**. In this project, GitHub is used as the source-code repository.
-
-### Poll SCM
-
-Poll SCM allows Jenkins to periodically check the source repository for changes.
 
 ---
 
@@ -482,111 +327,176 @@ Poll SCM allows Jenkins to periodically check the source repository for changes.
 Through this project, I learned and practiced:
 
 * Jenkins installation and basic configuration
-* Jenkins Pipeline creation
-* Declarative Jenkinsfile structure
-* Pipeline stages
+* Jenkins Pipeline
+* Declarative Jenkinsfile
+* CI/CD concepts
 * GitHub integration with Jenkins
-* Pipeline script from SCM
-* Docker image creation
-* Docker image verification
-* Docker container deployment
-* Port mapping
 * SCM polling
-* CI/CD workflow
-* Troubleshooting Jenkins and Git issues
-* Verifying deployments through a browser
+* Docker image creation
+* Docker container deployment
+* Docker port mapping
+* Nginx containerization
+* Pipeline stages
+* Build and deployment automation
+* Basic CI/CD troubleshooting
 
 ---
 
-## 🧠 Key Interview Points
+## ⚠️ Issues Encountered
 
-### What is Jenkins?
+### 1. Jenkins Java Requirement
 
-Jenkins is an open-source automation server used to automate software development processes such as build, test, and deployment.
+Jenkins required a compatible Java environment, so Java 21 was configured for running Jenkins.
 
-### What is a Jenkinsfile?
+### 2. Docker Image Build
 
-A Jenkinsfile defines the Jenkins pipeline as code and can be stored inside the project's source-code repository.
+The Docker image was successfully created using:
 
-### What stages were used in this project?
-
-```text
-Checkout SCM → Build → Test → Deploy
+```bash
+docker build -t task-2-jenkins-cicd .
 ```
 
-### Why was Docker used?
+### 3. Docker Port Mapping
 
-Docker was used to package and deploy the web application in a consistent containerized environment.
-
-### What is the difference between an image and a container?
-
-A Docker **image** is the packaged template, while a **container** is a running instance created from that image.
-
-### What is Declarative Pipeline?
-
-Declarative Pipeline is a structured Jenkins pipeline syntax that defines the pipeline using blocks such as:
+The application used the following port mapping:
 
 ```text
-pipeline
-agent
-stages
-stage
-steps
+8080:80
 ```
 
-### What is Poll SCM?
+This means:
 
-Poll SCM periodically checks the configured source repository for changes and can trigger a new Jenkins build when changes are detected.
+```text
+Host Port 8080 → Container Port 80
+```
 
----
+### 4. Git Push Connection Issue
 
-## 📋 Project Status
+During the project, a Git push encountered a temporary connection reset:
 
-| Requirement            | Status     |
-| ---------------------- | ---------- |
-| Jenkins setup          | ✅ Complete |
-| Java 21 configuration  | ✅ Complete |
-| Docker setup           | ✅ Complete |
-| GitHub repository      | ✅ Complete |
-| Jenkinsfile            | ✅ Complete |
-| Pipeline from SCM      | ✅ Complete |
-| Checkout SCM           | ✅ Success  |
-| Build stage            | ✅ Success  |
-| Test stage             | ✅ Success  |
-| Deploy stage           | ✅ Success  |
-| Docker deployment      | ✅ Verified |
-| Poll SCM configuration | ✅ Complete |
-| README.md              | ✅ Complete |
-| Evidence screenshots   | ✅ Added    |
-| GitHub push            | ✅ Complete |
-| Final verification     | ✅ Complete |
+```text
+error: RPC failed
+curl 35 Recv failure: Connection was reset
+fatal: the remote end hung up unexpectedly
+```
+
+The repository state was subsequently verified and the project files were successfully synchronized with GitHub.
 
 ---
 
-## 🏁 Conclusion
+## 🧠 Key Commands
 
-This project demonstrates a practical **Jenkins + Docker CI/CD workflow**.
+### Git Commands
 
-The source code is maintained in GitHub, Jenkins retrieves the project through SCM, builds the Docker image, verifies the image, and deploys the application using a Docker container.
+```bash
+git status
 
-The final deployment was successfully verified through the browser at:
+git add .
+
+git commit -m "message"
+
+git push origin main
+```
+
+### Docker Commands
+
+```bash
+docker --version
+
+docker build -t task-2-jenkins-cicd .
+
+docker image inspect task-2-jenkins-cicd
+
+docker run -d --name task2-app -p 8080:80 task-2-jenkins-cicd
+
+docker ps
+
+docker ps -a
+```
+
+### Jenkins
+
+Jenkins was started locally using:
+
+```bash
+java -jar jenkins.war --httpPort=8081
+```
+
+Jenkins dashboard:
+
+```text
+http://localhost:8081
+```
+
+Application:
 
 ```text
 http://localhost:8080
 ```
 
-The project provides practical exposure to the core CI/CD workflow used in DevOps environments.
+---
+
+## ✅ Project Status
+
+| Requirement               | Status     |
+| ------------------------- | ---------- |
+| Jenkins setup             | ✅ Complete |
+| Docker setup              | ✅ Complete |
+| GitHub repository         | ✅ Complete |
+| Dockerfile                | ✅ Complete |
+| Jenkinsfile               | ✅ Complete |
+| Jenkins Pipeline          | ✅ Complete |
+| Checkout SCM              | ✅ Complete |
+| Build stage               | ✅ Complete |
+| Test stage                | ✅ Complete |
+| Deploy stage              | ✅ Complete |
+| SCM Polling configuration | ✅ Complete |
+| Docker deployment         | ✅ Complete |
+| Browser verification      | ✅ Complete |
+| README.md                 | ✅ Complete |
+| Evidence screenshots      | ✅ Added    |
+| Final verification        | ✅ Complete |
+
+---
+
+## 🏁 Conclusion
+
+This project demonstrates a practical **Jenkins + Docker CI/CD workflow** suitable for a DevOps environment.
+
+The project successfully connects source-code management with Jenkins automation and Docker deployment:
+
+```text
+GitHub
+   ↓
+Jenkins
+   ↓
+Checkout SCM
+   ↓
+Build
+   ↓
+Test
+   ↓
+Deploy
+   ↓
+Docker Container
+   ↓
+Nginx
+   ↓
+Web Application
+```
+
+The project provided hands-on experience with **Jenkins Pipeline, Jenkinsfile, Docker containerization, GitHub integration, SCM polling, automated build, and application deployment**.
 
 ---
 
 ## 🚀 Final Project
 
-**Task:** Task 2 — Create a Simple Jenkins Pipeline for CI/CD
+**Task 2 — Jenkins CI/CD Pipeline with Docker**
 
-**Repository:** `Task-2-jenkins-cicd`
+**Status:** `Completed`
 
-**Status:** ✅ Completed
+---
 
 **GitHub Repository:**
 
-[https://github.com/nileshyadav2803/Task-2-jenkins-cicd](https://github.com/nileshyadav2803/Task-2-jenkins-cicd)
+`https://github.com/nileshyadav2803/Task-2-jenkins-cicd`
